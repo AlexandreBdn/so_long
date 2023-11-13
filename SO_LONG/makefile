@@ -12,8 +12,7 @@
 
 NAME = so_long
 	     
-SRC = so_long.c \
-	asset/moov.c\
+SRC = so_long.c\
 	maps/read_map.c\
 	maps/heart_maps.c\
 	maps/mov_player.c\

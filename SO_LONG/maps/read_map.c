@@ -54,54 +54,54 @@ void	*ft_free_map(t_game *game)
 	return (0);
 }
 
-char    **parse_map(int fd,t_game *game)
+char	**parse_map(int fd, t_game *game)
 {
-int	i;
+	int	i;
 
 	i = 1;
-	game->map = ft_split(get_map(fd),'\n');
-		if (checker_map(game) == 1)
-		{
-			ft_free_map(game);
-			return(0);
-		}
+	game->map = ft_split(get_map(fd), '\n');
+	if (checker_map(game) == 1)
+	{
+		ft_free_map(game);
+		return (0);
+	}
 	ft_checker_content(game);
 	if (!(ft_check_line(game->map[0], game->content.wall)))
-		return(ft_free_map(game));
-	while(game->map[i] != NULL)
+		return (ft_free_map(game));
+	while (game->map[i] != NULL)
 	{
-		if (!(ft_check_col(game->map[i], game->content.wall,game)))
-			return(ft_free_map(game));
+		if (!(ft_check_col(game->map[i], game->content.wall, game)))
+			return (ft_free_map(game));
 		i++;
 	}
 	if (!(ft_check_line(game->map[i - 1], game->content.wall)))
-		return(ft_free_map(game));
+		return (ft_free_map(game));
 	game->height = i;
-	return(game->map);
+	return (game->map);
 }
 
-char **map_core(char **str,t_game *game)
+char	**map_core(char **str, t_game *game)
 {
-	int fd;
+	int	fd;
 
 	fd = 0;
 	game->map = NULL;
 	if (ft_strchr_int(str[1], ".ber") == 0)
-		return(ft_error("Error\nNo correct format map\n"));
+		return (ft_error("Error\nNo correct format map\n"));
 	else
 	{
 		fd = open(str[1], O_RDONLY);
 		if (fd > 0)
-			game->map = parse_map(fd,game);
+			game->map = parse_map(fd, game);
 		else
-			return(ft_error("Error\nFailled to open file"));
+			return (ft_error("Error\nFailled to open file"));
 		if ((game->content.count_c == 0 || game->content.count_e != 1
 				|| game->content.count_p != 1) && game->map != NULL)
 		{
 			ft_free_map(game);
-			return (ft_error("Error\n Need 1 player/exit and at least 1 Object\n"));
+			return (
+				ft_error("Error\nNeed 1 player/exitand at least 1 Object\n"));
 		}
-		
 	}
-	return(game->map);
+	return (game->map);
 }

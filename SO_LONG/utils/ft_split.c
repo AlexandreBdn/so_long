@@ -11,38 +11,41 @@
 /* ************************************************************************** */
 #include "../so_long.h"
 
-    char    *ft_strnew(size_t size)
-    {
-        char    *str;
-
-        str = (char *)malloc(sizeof(char *) * (size + 1));
-        if (str == NULL)
-            return (NULL);
-        while (size > 0)
-            str[size--] = '\0';
-        str[0] = '\0';
-        return (str);
-    }
-
-
-char	*ft_strsub(char const *s, unsigned int start, size_t len)
+char	*ft_strnew(size_t size)
 {
-	char	*result;
-	size_t	i;
+	char	*str;
 
-	i = 0;
-	if (!s || start + len > ft_strlen(s))
+	str = (char *)malloc(sizeof(char *) * (size + 1));
+	if (str == NULL)
 		return (NULL);
-	if ((result = ft_strnew(len)))
+	while (size > 0)
+		str[size--] = '\0';
+	str[0] = '\0';
+	return (str);
+}
+
+char	*ft_substr(char const *s, unsigned int start, size_t len)
+{
+	size_t	i;
+	size_t	j;
+	char	*str;
+
+	str = (char *) malloc (sizeof(*s) * (len + 1));
+	if (!str)
+		return (NULL);
+	i = 0;
+	j = 0;
+	while (s[i])
 	{
-		while (len)
+		if (i >= start && j < len)
 		{
-			result[i++] = s[start++];
-			len--;
+			str[j] = s[i];
+			j++;
 		}
-		result[i] = '\0';
+		i++;
 	}
-	return (result);
+	str[j] = 0;
+	return (str);
 }
 
 int	ft_nbword(char const *s, char c)
@@ -98,7 +101,7 @@ char	**ft_split(char *s, char c)
 		while (s[i] == c)
 			i++;
 		size = ft_lword(s, c, i);
-		strs[j] = ft_strsub(s, i, size);
+		strs[j] = ft_substr(s, i, size);
 		if (!strs[j])
 			return (NULL);
 		i += size;

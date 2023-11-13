@@ -20,7 +20,7 @@ int	ft_putnbr_bis(int n, unsigned int unb, int i, int count)
 		write(1, "-", 1);
 		unb = -n;
 		count++;
-	}			
+	}
 	while (unb != 0)
 	{
 		c[i] = (unb % 10) + '0';

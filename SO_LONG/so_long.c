@@ -11,15 +11,15 @@
 /* ************************************************************************** */
 #include "so_long.h"
 
-int close_solong(t_game *game)
+int	close_solong(t_game *game)
 {
 	end(game);
-	mlx_destroy_window(game->mlx_ptr,game->win_ptr);
+	mlx_destroy_window(game->mlx_ptr, game->win_ptr);
 	mlx_destroy_display(game->mlx_ptr);
-	return(2);
+	return (2);
 }
 
-int key_hook(int key,t_game *game)
+int	key_hook(int key, t_game *game)
 {
 	(void) game;
 	if (key == escape)
@@ -32,10 +32,10 @@ int key_hook(int key,t_game *game)
 		mov_left(game);
 	if (key == right)
 		mov_right(game);
-	ft_printf("movement %d\n",game->movement);
+	ft_printf("movement %d\n", game->movement);
 	render(game);
 	//ft_printf("echap -> %d\n",key);
-	return 0;
+	return (0);
 }
 
 int	end(t_game *game)
@@ -63,21 +63,21 @@ int	end(t_game *game)
 	exit(0);
 }
 
-int main (int argc,char **str)
+int	main(int argc, char **str)
 {
-	t_game game;
+	t_game	game;
 
 	if (argc != 2)
 	{
 		ft_error("Error\nThis programe take 1 argumet .ber\n");
-		return(0);
+		return (0);
 	}
 	else
 	{
 		game.movement = 0;
 		game.mlx_ptr = mlx_init();
 		setting(&(game.content));
-		game.map = map_core(str,&game);
+		game.map = map_core(str, &game);
 		if (game.map != NULL)
 		{
 			setting_img(&game);
@@ -89,6 +89,5 @@ int main (int argc,char **str)
 			free(game.map);
 		}
 	}
-		close_solong(&game);
-	return(0);
+	return (0);
 }
